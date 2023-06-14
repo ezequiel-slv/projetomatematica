@@ -24,21 +24,25 @@ def vertice_coloring(grafo):
     return cores, len(set(cores.values()))
 
 
-# Função para visualizar o grafo colorido
+# Função para visualizar o grafo original e colorido
 def visualisar_grafo(grafo, cores):
 
+    # Fonfigurar a janela de exibição
     fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+    # Definir modo como o grafo é organizado
     pos = nx.shell_layout(grafo)
 
+    # GRafo original
     axs[0].set_title('Grafo Original')
     nx.draw_networkx(grafo, pos, ax=axs[0], with_labels=True, node_color='lightgray', node_size=500)
 
-
+    # Grafo Colorido
     axs[1].set_title('Grafo Colorido')
     node_colors = [cores[node] for node in grafo.nodes()]
     nx.draw_networkx(grafo, pos, font_color='white', ax=axs[1], with_labels=True, node_color=node_colors, cmap=plt.cm.Set1, node_size=500)
     axs[1].text(0.5, -0.1, f'Número de Cores: {num_cores}', ha='center', transform=axs[1].transAxes)
 
+    # Exibir Saida
     plt.tight_layout()
     plt.show()
 
@@ -60,5 +64,5 @@ for _ in range(num_arestas):
 # Execução do algoritmo de coloração
 cores, num_cores = vertice_coloring(grafo)
 
-# Visualização do grafo colorido
+# Visualização do grafo original e colorido
 visualisar_grafo(grafo, cores)
