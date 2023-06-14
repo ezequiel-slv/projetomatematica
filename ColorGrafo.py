@@ -21,16 +21,25 @@ def vertice_coloring(grafo):
         # Atribuir a menor cor disponível ao vértice
         cores[vertex] = min(cores_disponiveis)
 
-    return cores
+    return cores, len(set(cores.values()))
 
 
 # Função para visualizar o grafo colorido
-def visualisar_grafo_colorido(grafo, cores):
+def visualisar_grafo(grafo, cores):
+
+    fig, axs = plt.subplots(1, 2, figsize=(10, 5))
     pos = nx.shell_layout(grafo)
 
-    node_colors = [cores[node] for node in grafo.nodes()]
+    axs[0].set_title('Grafo Original')
+    nx.draw_networkx(grafo, pos, ax=axs[0], with_labels=True, node_color='lightgray', node_size=500)
 
-    nx.draw(grafo, pos, font_color='white', with_labels=True, node_color=node_colors, cmap=plt.cm.Set1, node_size=500)
+
+    axs[1].set_title('Grafo Colorido')
+    node_colors = [cores[node] for node in grafo.nodes()]
+    nx.draw_networkx(grafo, pos, font_color='white', ax=axs[1], with_labels=True, node_color=node_colors, cmap=plt.cm.Set1, node_size=500)
+    axs[1].text(0.5, -0.1, f'Número de Cores: {num_cores}', ha='center', transform=axs[1].transAxes)
+
+    plt.tight_layout()
     plt.show()
 
 
@@ -49,7 +58,7 @@ for _ in range(num_arestas):
     grafo.add_edge(int(arestas[0]), int(arestas[1]))
 
 # Execução do algoritmo de coloração
-cores = vertice_coloring(grafo)
+cores, num_cores = vertice_coloring(grafo)
 
 # Visualização do grafo colorido
-visualisar_grafo_colorido(grafo, cores)
+visualisar_grafo(grafo, cores)
