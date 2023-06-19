@@ -40,7 +40,7 @@ def visualisar_grafo(grafo, cores):
     axs[1].set_title('Grafo Colorido')
     node_colors = [cores[node] for node in grafo.nodes()]
     nx.draw_networkx(grafo, pos, font_color='white', ax=axs[1], with_labels=True, node_color=node_colors, cmap=plt.cm.Set1, node_size=500)
-    axs[1].text(0.5, -0.1, f'Número de Cores: {num_cores}', ha='center', transform=axs[1].transAxes)
+    axs[1].text(0.5, -0.1, f'x(G) = {num_cores}', ha='center', transform=axs[1].transAxes)
 
     # Exibir Saida
     plt.tight_layout()
